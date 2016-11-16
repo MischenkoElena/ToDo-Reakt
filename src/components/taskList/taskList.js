@@ -14,7 +14,7 @@ var TaskList = React.createClass({
         )
       })
     } else {
-      newsTemplate = <p>К сожалению новостей нет</p>
+      newsTemplate = <p>Записи отсутствуют</p>
     };
   return (
     <div className="news">
