@@ -2,24 +2,34 @@ import React from 'react';
 import TaskItem from '../taskItem/taskItem'
 
 var TaskList = React.createClass({
+  // getInitialState: function() {
+  //   return {
+  //     data: this.props.data
+  //   };
+  // },
+  updateDelList: function(item) {
+    this.props.onDelete(item);
+  },
+  updateEditList: function(item, value) {
+    this.props.onEdit(item, value);
+  },
+
   render: function() {
-    var data = this.props.data;
-    var newsTemplate;
+    let self = this,
+      data = this.props.data,
+      tasksTemplate;
     if (data.length > 0) {
-      newsTemplate = data.map(function(item, index) {
-        return (
-        <div key={index}>
-        <TaskItem data={item} />
-        </div>
-        )
-      })
-    } else {
-      newsTemplate = <p>Записи отсутствуют</p>
-    };
-  return (
-    <div className="news">
-    {newsTemplate}
-    </div>
+      let taskItems = data.map(function(item, index) {
+        return <TaskItem data={item} key={index} dataId={item.id} onDeleteTask={self.updateDelList} onEditTask={self.updateEditList} />
+      });
+      tasksTemplate = <ul className="task-list" > {taskItems} </ul>
+      } else {
+      tasksTemplate = <p>Записи отсутствуют</p>
+    }
+    return (
+      <div className="tasks-list-wrap" >
+        {tasksTemplate}
+      </div>
     );
   }
 });
